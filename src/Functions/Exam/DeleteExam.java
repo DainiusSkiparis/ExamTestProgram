@@ -1,5 +1,6 @@
 package Functions.Exam;
 
+import commands.AdminCommands;
 import configs.SessionFactoryMaker;
 import entities.Exam;
 import org.hibernate.Session;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class DeleteExam {
     public static void deleteExamById(Scanner sc) {
-
+        ShowExam.showAllExams();
         System.out.println("Enter exam ID:");
         String inputId = sc.nextLine();
         Exam delExamById;
@@ -28,6 +29,7 @@ public class DeleteExam {
     }
 
     public static void deleteExamByTitle(Scanner sc) {
+        ShowExam.showAllExams();
         System.out.println("Enter exam title:");
         String inputTitle = sc.nextLine();
         Exam delExamByTitle;
@@ -47,16 +49,21 @@ public class DeleteExam {
     }
 
     public static void deleteAllExams(Scanner sc) {
+
+        System.out.println("Ar you sure want to delete all exams? (y/n)");
+        if (sc.nextLine().equalsIgnoreCase("y")) {
+
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             List<Exam> exams = session.createQuery("from Exam", Exam.class).list();
             for (Exam e : exams) {
-
                 session.remove(e);
             }
-            ;
             transaction.commit();
         }
         System.out.printf("All exams was deleted!!!%n");
+        }else {
+            AdminCommands.deleteExamCMD();
+        }
     }
 }

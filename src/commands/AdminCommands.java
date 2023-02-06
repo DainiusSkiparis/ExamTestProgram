@@ -86,7 +86,7 @@ public class AdminCommands {
         }
         adminExamsCMD();
     }
-    private static void deleteExamCMD() {
+    public static void deleteExamCMD() {
         boolean runProgram = true;
         while (runProgram) {
             try {
