@@ -54,7 +54,8 @@ public class TestData {
     }
 
     private static void newInsertExams() {
-
+       Integer answerId;
+       answerId = 1;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 
@@ -97,6 +98,7 @@ public class TestData {
                     String answersFileName = String.format("./src/configs/datafiles/questions/answers/questions_%s_%s.txt", examTitle, answerNr);
                     FileReader fileReaderAnswers = new FileReader(answersFileName);
                     BufferedReader buffReaderAnswers = new BufferedReader(fileReaderAnswers);
+
                     while (buffReaderAnswers.ready()) {
 
                         Answer answer = new Answer();
@@ -105,12 +107,24 @@ public class TestData {
                         answer.setQuestion(question);
 
                         ArrayList<Answer> answers = new ArrayList<>();
-
                         answers.add(answer);
                         question.setAnswers(answers);
 
                         session.merge(question);
+                    }
 
+                    String answersScoreFileName = String.format("./src/configs/datafiles/questions/answers/questions_%s_%s_ats.txt", examTitle, answerNr);
+                    FileReader fileReaderAnswersScore = new FileReader(answersScoreFileName);
+                    BufferedReader buffReaderAnswersScore = new BufferedReader(fileReaderAnswersScore);
+                    while (buffReaderAnswersScore.ready()) {
+
+                        Answer answerScore = session.get(Answer.class, answerId);
+
+                        int score = Integer.parseInt(buffReaderAnswersScore.readLine());
+                        answerScore.setCorrect_answer(score == 1);
+
+                        session.persist(answerScore);
+                        answerId++;
                     }
 
                 }
