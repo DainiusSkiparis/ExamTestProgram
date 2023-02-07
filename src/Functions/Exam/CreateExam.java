@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 public class CreateExam {
@@ -27,7 +26,6 @@ public class CreateExam {
             addExam.setExam_title(examTitle);
 
             addExam.setCreate_time(LocalDate.now());
-            addExam.setUpdate_time(LocalDate.now());
 
             session.merge(addExam);
             transaction.commit();
@@ -65,7 +63,6 @@ public class CreateExam {
             addQuestion.setQuestion_text(questionText);
 
             addQuestion.setCreate_time(LocalDate.now());
-            addQuestion.setUpdate_time(LocalDate.now());
 
             session.merge(addQuestion);
             transaction.commit();
@@ -100,7 +97,6 @@ public class CreateExam {
             addAnswer.setAnswer_text(answerText);
 
             addAnswer.setCreate_time(LocalDate.now());
-            addAnswer.setUpdate_time(LocalDate.now());
 
             session.merge(addAnswer);
             transaction.commit();

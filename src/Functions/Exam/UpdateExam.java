@@ -7,6 +7,7 @@ import entities.Question;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UpdateExam {
@@ -20,7 +21,7 @@ public class UpdateExam {
             Exam examToUpdate = session.get(Exam.class, id);
             System.out.println("Enter new title:");
             examToUpdate.setExam_title(sc.nextLine());
-
+            examToUpdate.setUpdate_time(LocalDate.now());
             session.merge(examToUpdate);
             System.out.printf("New title exam is '%s'%n", examToUpdate.getExam_title());
 
@@ -46,6 +47,7 @@ public class UpdateExam {
             Question questionToUpdate = session.get(Question.class, questionId);
             System.out.println("Enter new question text:");
             questionToUpdate.setQuestion_text(sc.nextLine());
+            questionToUpdate.setUpdate_time(LocalDate.now());
 
             session.merge(questionToUpdate);
             System.out.printf("New question text is '%s'%n", questionToUpdate.getQuestion_text());
@@ -80,6 +82,7 @@ public class UpdateExam {
             Answer answerToUpdate = session.get(Answer.class, answerId);
             System.out.println("Enter new answer text:");
             answerToUpdate.setAnswer_text(sc.nextLine());
+            answerToUpdate.setUpdate_time(LocalDate.now());
 
             session.merge(answerToUpdate);
             System.out.printf("New answer is '%s'%n", answerToUpdate.getAnswer_text());
