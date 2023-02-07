@@ -75,8 +75,9 @@ public class AdminCommands {
                 PrintCommandsText.updateExamText();
                 String input = sc.nextLine();
                 switch (input) {
-                    case "1" -> UpdateExam.showExamById(sc);
-                    case "2" -> UpdateExam.showExamByTitle(sc);
+                    case "1" -> UpdateExam.updateExamTitle(sc);
+                    case "2" -> UpdateExam.updateExamQuestions(sc);
+                    case "3" -> UpdateExam.updateExamAnswers(sc);
                     case "0" -> runProgram = false;
                     default -> System.out.println("Incorrect input! Try again.");
                 }

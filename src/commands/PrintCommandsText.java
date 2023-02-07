@@ -70,8 +70,9 @@ public class PrintCommandsText {
 
     public static void updateExamText() {
         System.out.println("---------------------");
-        System.out.println("[1] - Update exam by id");
-        System.out.println("[2] - Update by exam title");
+        System.out.println("[1] - Update exam title");
+        System.out.println("[2] - Update exam question");
+        System.out.println("[3] - Update exam answer");
         System.out.println("[0] - Return to admin menu");
         System.out.println("---------------------");
     }

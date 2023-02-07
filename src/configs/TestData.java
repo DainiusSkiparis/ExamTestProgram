@@ -56,6 +56,8 @@ public class TestData {
     private static void newInsertExams() {
        Integer answerId;
        answerId = 1;
+
+
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 
@@ -71,6 +73,9 @@ public class TestData {
 
                 Exam examIdByTitle = (Exam) session.createQuery("from Exam where exam_title = :x").setParameter("x", examTitle).uniqueResult();
                 exam = session.get(Exam.class, examIdByTitle.getId());
+
+                Integer answerNr;
+                answerNr = 1;
 
                 String questionsFileName = String.format("./src/configs/datafiles/questions/questions_%s.txt", examTitle);
                 FileReader fileReaderQuestions = new FileReader(questionsFileName);
@@ -92,10 +97,9 @@ public class TestData {
                     Question questionIdByText = (Question) session.createQuery("from Question where question_text = :x").setParameter("x", questionText).uniqueResult();
                     question = session.get(Question.class, questionIdByText.getId());
 
-                    int answerNr = 0;
-                    answerNr++;
 
-                    String answersFileName = String.format("./src/configs/datafiles/questions/answers/questions_%s_%s.txt", examTitle, answerNr);
+
+                    String answersFileName = String.format("./src/configs/datafiles/questions/answers/questions_%s_%d.txt", examTitle, answerNr);
                     FileReader fileReaderAnswers = new FileReader(answersFileName);
                     BufferedReader buffReaderAnswers = new BufferedReader(fileReaderAnswers);
 
@@ -111,9 +115,11 @@ public class TestData {
                         question.setAnswers(answers);
 
                         session.merge(question);
+
                     }
 
-                    String answersScoreFileName = String.format("./src/configs/datafiles/questions/answers/questions_%s_%s_ats.txt", examTitle, answerNr);
+
+                    String answersScoreFileName = String.format("./src/configs/datafiles/questions/answers/questions_%s_%d_ats.txt", examTitle, answerNr);
                     FileReader fileReaderAnswersScore = new FileReader(answersScoreFileName);
                     BufferedReader buffReaderAnswersScore = new BufferedReader(fileReaderAnswersScore);
                     while (buffReaderAnswersScore.ready()) {
@@ -124,9 +130,10 @@ public class TestData {
                         answerScore.setCorrect_answer(score == 1);
 
                         session.persist(answerScore);
+
                         answerId++;
                     }
-
+                    answerNr++;
                 }
 
             }

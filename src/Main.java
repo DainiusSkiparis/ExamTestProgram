@@ -3,13 +3,10 @@ import commands.Commands;
 import commands.UserCommands;
 import configs.SessionFactoryMaker;
 
-import java.io.*;
-
 import static configs.TestData.uploadTestData;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-
+    public static void main(String[] args) {
 
         SessionFactoryMaker.getFactory();
         System.out.println("DB connection successfully!!!");
@@ -25,7 +22,7 @@ public class Main {
         int user = 2;
         int start = 0;
 
-        int skipTo = admin;
+        int skipTo = start;
 
         if (skipTo == 1) {
             AdminCommands.loginToAdminCMD();
