@@ -32,10 +32,6 @@ public class Exam {
         this.questions = questions;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public void setExam_title(String exam_title) {
         this.exam_title = exam_title;
     }

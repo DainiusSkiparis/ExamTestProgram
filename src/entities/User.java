@@ -16,17 +16,13 @@ public class User {
     @Column
     private String password;
     @Column
-    private boolean admin;
+    private Boolean admin;
     @Column
     private LocalDate create_time;
     @Column
     private LocalDate update_time;
 
     public User() {
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setUsername(String username) {

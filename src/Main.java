@@ -2,33 +2,27 @@ import commands.AdminCommands;
 import commands.Commands;
 import commands.UserCommands;
 import configs.SessionFactoryMaker;
-
-import static configs.TestData.uploadTestData;
+import configs.TestData;
 
 public class Main {
     public static void main(String[] args) {
-
         SessionFactoryMaker.getFactory();
         System.out.println("DB connection successfully!!!");
 
-        //create new database if not exists
-        //configs.CreateDB.create();
-
-        //upload test data to database
-        uploadTestData();
-
-        //Skip steps configuration
-        int admin = 1;
-        int user = 2;
-        int start = 0;
-
-        int skipTo = user;
+        //Skip steps
+        int skipTo = 1; // 0 = login; 1 = admin, 2 = user,
 
         if (skipTo == 1) {
+            TestData.uploadTestData();
             AdminCommands.loginToAdminCMD();
         } else if (skipTo == 2) {
+            TestData.uploadTestData();
             UserCommands.loginToUserCMD();
-        } else Commands.runProgramCMD();
-    }
+        } else {
+            TestData.uploadTestData();
+            Commands.runProgramCMD();
 
+
+        }
+    }
 }

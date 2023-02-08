@@ -1,6 +1,7 @@
 package entities;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -13,7 +14,7 @@ public class Answer {
     @Column
     private String answer_text;
     @Column
-    private boolean correct_answer;
+    private Boolean correct_answer = false;
     @Column
     private LocalDate create_time;
     @Column
@@ -32,10 +33,6 @@ public class Answer {
 
     public void setQuestion(Question question) {
         this.question = question;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setAnswer_text(String answer_text) {

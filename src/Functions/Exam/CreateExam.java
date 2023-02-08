@@ -21,23 +21,41 @@ public class CreateExam {
 
             System.out.println("Enter exam title:");
             examTitle = sc.nextLine();
-            addExam.setExam_title(examTitle);
 
-            addExam.setCreate_time(LocalDate.now());
+            try {
+                Exam examIdByTitle = (Exam) session.createQuery("from Exam where exam_title = :x").setParameter("x", examTitle).uniqueResult();
 
-            session.merge(addExam);
+                System.out.println("examIdByTitle: " + examIdByTitle.getId());
+                Exam existExam = session.get(Exam.class, examIdByTitle.getId());
+
+                existExam.setUpdate_time(LocalDate.now());
+                session.merge(existExam);
+                System.out.printf("Exam title '%s' already exist, you can add new questions with answers to this exam.%n", examTitle);
+
+            } catch (Exception e) {
+                addExam.setExam_title(examTitle);
+                addExam.setCreate_time(LocalDate.now());
+                session.merge(addExam);
+                System.out.printf("Exam title '%s' added successfully!!!%n", addExam.getExam_title());
+            }
+
             transaction.commit();
         }
 
-        System.out.printf("Exam title '%s' added successfully!!!%n", addExam.getExam_title());
         addManyQuestions(sc, examTitle);
     }
 
     private static void addManyQuestions(Scanner sc, String questionText) {
+
         System.out.println("How many questions do you want to add?");
-        int numberOfQuestions = Integer.parseInt(sc.nextLine());
-        for (int i = 0; i < numberOfQuestions; i++) {
-            addQuestion(sc, questionText, i);
+        try {
+            int numberOfQuestions = Integer.parseInt(sc.nextLine());
+
+            for (int i = 0; i < numberOfQuestions; i++) {
+                addQuestion(sc, questionText, i);
+            }
+        } catch (NumberFormatException ex) {
+            addManyQuestions(sc, questionText);
         }
     }
 

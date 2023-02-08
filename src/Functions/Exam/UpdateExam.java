@@ -38,7 +38,7 @@ public class UpdateExam {
 
             Exam examQuestionsToUpdate = session.get(Exam.class, examId);
             for (Question e : examQuestionsToUpdate.getQuestions()) {
-                System.out.printf("Question id: %d | %s %n", e.getId(), e.getQuestion_text());
+                System.out.printf("[%d] %s %n", e.getId(), e.getQuestion_text());
             }
             System.out.println("Enter ID which question you want update:");
             int questionId = Integer.parseInt(sc.nextLine());
@@ -64,14 +64,14 @@ public class UpdateExam {
 
             Exam examQuestionsToUpdate = session.get(Exam.class, examId);
             for (Question e : examQuestionsToUpdate.getQuestions()) {
-                System.out.printf("Question id: %d | %s %n", e.getId(), e.getQuestion_text());
+                System.out.printf("[%d] %s %n", e.getId(), e.getQuestion_text());
             }
             System.out.println("Enter ID to the question:");
             int questionId = Integer.parseInt(sc.nextLine());
 
             Question questionAnswersToUpdate = session.get(Question.class, questionId);
             for (Answer e : questionAnswersToUpdate.getAnswers()) {
-                System.out.printf("Answer id: %d | %s %n", e.getId(), e.getAnswer_text());
+                System.out.printf("[%d] %s %n", e.getId(), e.getAnswer_text());
             }
 
             System.out.println("Enter ID which answer you want update:");

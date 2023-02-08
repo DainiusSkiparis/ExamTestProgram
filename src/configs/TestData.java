@@ -1,9 +1,6 @@
 package configs;
 
-import entities.Answer;
-import entities.Exam;
-import entities.Question;
-import entities.User;
+import entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

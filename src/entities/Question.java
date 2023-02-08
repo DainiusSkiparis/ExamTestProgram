@@ -25,8 +25,7 @@ public class Question {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.EAGER)
     private List<Answer> answers;
 
-    public Question() {
-    }
+    public Question() {}
 
     public List<Answer> getAnswers() {
         return answers;
@@ -42,10 +41,6 @@ public class Question {
 
     public void setExam(Exam exam) {
         this.exam = exam;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setQuestion_text(String question_text) {
