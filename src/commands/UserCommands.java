@@ -1,5 +1,7 @@
 package commands;
 
+import Functions.Users.DoExam;
+
 import static commands.Commands.sc;
 
 public class UserCommands {
@@ -11,7 +13,7 @@ public class UserCommands {
                     PrintCommandsText.loginUserText();
                     String input = sc.nextLine();
                     switch (input) {
-                        //case "1" -> startDoExam(sc);
+                        case "1" -> DoExam.startDoExam(sc);
                         //case "2" -> showResults(sc);
                         case "0" -> runProgram = false;
                         default -> System.out.println("Incorrect input! Try again.");

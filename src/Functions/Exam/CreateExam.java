@@ -1,9 +1,7 @@
 package Functions.Exam;
 
 import configs.SessionFactoryMaker;
-import entities.Answer;
-import entities.Exam;
-import entities.Question;
+import entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

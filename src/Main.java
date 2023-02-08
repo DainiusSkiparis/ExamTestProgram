@@ -22,7 +22,7 @@ public class Main {
         int user = 2;
         int start = 0;
 
-        int skipTo = start;
+        int skipTo = user;
 
         if (skipTo == 1) {
             AdminCommands.loginToAdminCMD();
