@@ -1,15 +1,14 @@
 package Functions.Users;
 
-import commands.AdminCommands;
-import commands.Commands;
-import commands.UserCommands;
+import commands.*;
 import configs.SessionFactoryMaker;
 import entities.User;
 import org.hibernate.Session;
+
 import java.util.Scanner;
 
 public class Checks {
-    private static boolean admin;
+    public static Boolean admin;
 
     public static boolean checkToCreateAdmin(Scanner sc) {
         System.out.println("Enter or this is admin user (y/n):");
@@ -23,7 +22,7 @@ public class Checks {
     }
 
     public static void checkToLogin(Scanner sc) {
-        ///Here check username
+        ///Here should be username checking function
         Checks.checkLoginPassword(sc);
     }
 
@@ -31,12 +30,10 @@ public class Checks {
         System.out.println("Enter username:");
         String inputUsername = sc.nextLine();
         User user;
-
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             user = (User) session.createQuery("FROM User WHERE username = :x").setParameter("x", inputUsername).uniqueResult();
-            System.out.println(user.getPassword());//show password from database for easier testing
+            System.out.printf("Your password is: %s%n", user.getPassword());//show password from database for easier testing
         }
-
         int guess = 0;
         while (guess < 3) {
             System.out.printf("You can try %s times %n", 3 - guess);
@@ -50,16 +47,15 @@ public class Checks {
             guess++;
         }
     }
+
     public static void checkLoginOrAdmin(String inputUsername) {
         User user;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             user = (User) session.createQuery("FROM User WHERE username = :x").setParameter("x", inputUsername).uniqueResult();
-            System.out.println(user.isAdmin()); //show or username is admin from database for easier testing
             if (user.isAdmin()) {
-                AdminCommands.loginToAdminCMD();;
-            } else {
-                UserCommands.loginToUserCMD();
+                AdminCommands.loginToAdminCMD();
             }
+            UserCommands.loginToUserCMD();
         }
     }
 }

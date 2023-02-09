@@ -4,7 +4,6 @@ import configs.SessionFactoryMaker;
 import entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -15,7 +14,6 @@ public class UpdateExam {
         int id = Integer.parseInt(sc.nextLine());
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-
             Exam examToUpdate = session.get(Exam.class, id);
             System.out.println("Enter new title:");
             examToUpdate.setExam_title(sc.nextLine());
@@ -25,17 +23,13 @@ public class UpdateExam {
 
             transaction.commit();
         }
-
     }
-
     public static void updateExamQuestions(Scanner sc) {
         ShowExam.showAllExams();
         System.out.println("Enter ID to choose the exam:");
         int examId = Integer.parseInt(sc.nextLine());
-
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-
             Exam examQuestionsToUpdate = session.get(Exam.class, examId);
             for (Question e : examQuestionsToUpdate.getQuestions()) {
                 System.out.printf("[%d] %s %n", e.getId(), e.getQuestion_text());
@@ -46,45 +40,35 @@ public class UpdateExam {
             System.out.println("Enter new question text:");
             questionToUpdate.setQuestion_text(sc.nextLine());
             questionToUpdate.setUpdate_time(LocalDate.now());
-
             session.merge(questionToUpdate);
             System.out.printf("New question text is '%s'%n", questionToUpdate.getQuestion_text());
-
             transaction.commit();
         }
     }
-
     public static void updateExamAnswers(Scanner sc) {
         ShowExam.showAllExams();
         System.out.println("Enter ID to choose the exam:");
         int examId = Integer.parseInt(sc.nextLine());
-
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-
             Exam examQuestionsToUpdate = session.get(Exam.class, examId);
             for (Question e : examQuestionsToUpdate.getQuestions()) {
                 System.out.printf("[%d] %s %n", e.getId(), e.getQuestion_text());
             }
             System.out.println("Enter ID to the question:");
             int questionId = Integer.parseInt(sc.nextLine());
-
             Question questionAnswersToUpdate = session.get(Question.class, questionId);
             for (Answer e : questionAnswersToUpdate.getAnswers()) {
                 System.out.printf("[%d] %s %n", e.getId(), e.getAnswer_text());
             }
-
             System.out.println("Enter ID which answer you want update:");
             int answerId = Integer.parseInt(sc.nextLine());
-
             Answer answerToUpdate = session.get(Answer.class, answerId);
             System.out.println("Enter new answer text:");
             answerToUpdate.setAnswer_text(sc.nextLine());
             answerToUpdate.setUpdate_time(LocalDate.now());
-
             session.merge(answerToUpdate);
             System.out.printf("New answer is '%s'%n", answerToUpdate.getAnswer_text());
-
             transaction.commit();
         }
     }

@@ -4,53 +4,41 @@ import configs.SessionFactoryMaker;
 import entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class CreateExam {
-
     public static void addExam(Scanner sc) {
         Exam addExam;
         String examTitle;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-
             System.out.println("Adding a new exam");
             addExam = new Exam();
-
             System.out.println("Enter exam title:");
             examTitle = sc.nextLine();
-
             try {
                 Exam examIdByTitle = (Exam) session.createQuery("from Exam where exam_title = :x").setParameter("x", examTitle).uniqueResult();
-
                 System.out.println("examIdByTitle: " + examIdByTitle.getId());
                 Exam existExam = session.get(Exam.class, examIdByTitle.getId());
-
                 existExam.setUpdate_time(LocalDate.now());
                 session.merge(existExam);
                 System.out.printf("Exam title '%s' already exist, you can add new questions with answers to this exam.%n", examTitle);
-
             } catch (Exception e) {
                 addExam.setExam_title(examTitle);
                 addExam.setCreate_time(LocalDate.now());
                 session.merge(addExam);
                 System.out.printf("Exam title '%s' added successfully!!!%n", addExam.getExam_title());
             }
-
             transaction.commit();
         }
-
         addManyQuestions(sc, examTitle);
     }
 
     private static void addManyQuestions(Scanner sc, String questionText) {
-
         System.out.println("How many questions do you want to add?");
         try {
             int numberOfQuestions = Integer.parseInt(sc.nextLine());
-
             for (int i = 0; i < numberOfQuestions; i++) {
                 addQuestion(sc, questionText, i);
             }
@@ -58,28 +46,20 @@ public class CreateExam {
             addManyQuestions(sc, questionText);
         }
     }
-
     public static void addQuestion(Scanner sc, String examTitle, int i) {
-
         Question addQuestion;
         String questionText;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-
             Exam examIdByTitle = (Exam) session.createQuery("from Exam where exam_title = :x").setParameter("x", examTitle).uniqueResult();
             Exam exam = session.get(Exam.class, examIdByTitle.getId());
-
             System.out.printf("Adding %d question%n", i + 1);
             addQuestion = new Question();
-
             addQuestion.setExam(exam);
-
             System.out.println("Enter question text:");
             questionText = sc.nextLine();
             addQuestion.setQuestion_text(questionText);
-
             addQuestion.setCreate_time(LocalDate.now());
-
             session.merge(addQuestion);
             transaction.commit();
         }
@@ -87,7 +67,6 @@ public class CreateExam {
     }
 
     private static void addManyAnswers(Scanner sc, String questionText) {
-
         for (int i = 0; i < 3; i++) {
             addAnswer(sc, questionText, i);
         }
@@ -95,7 +74,6 @@ public class CreateExam {
     }
 
     private static void addAnswer(Scanner sc, String questionText, int i) {
-
         Answer addAnswer;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();

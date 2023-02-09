@@ -8,7 +8,6 @@ public class PrintCommandsText {
         System.out.println("[0] - Exit program");
         System.out.println("---------------------");
     }
-
     public static void loginAdminText() {
         System.out.println("---------------------");
         System.out.println("[1] - Exams");
@@ -18,7 +17,6 @@ public class PrintCommandsText {
         System.out.println("[0] - Return to login menu");
         System.out.println("---------------------");
     }
-
     public static void adminExamsText() {
         System.out.println("---------------------");
         System.out.println("[1] - Show exams");
@@ -67,7 +65,6 @@ public class PrintCommandsText {
         System.out.println("[0] - Return to admin menu");
         System.out.println("---------------------");
     }
-
     public static void updateExamText() {
         System.out.println("---------------------");
         System.out.println("[1] - Update exam title");
@@ -76,7 +73,6 @@ public class PrintCommandsText {
         System.out.println("[0] - Return to admin menu");
         System.out.println("---------------------");
     }
-
     public static void deleteExamText() {
         System.out.println("---------------------");
         System.out.println("[1] - Delete by exam id");
@@ -85,8 +81,6 @@ public class PrintCommandsText {
         System.out.println("[0] - Return to admin menu");
         System.out.println("---------------------");
     }
-
-
     public static void loginUserText() {
         System.out.println("---------------------");
         System.out.println("[1] - Take exam");
@@ -95,8 +89,5 @@ public class PrintCommandsText {
         System.out.println("---------------------");
     }
 }
-
-
-
 
 

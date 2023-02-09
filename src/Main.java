@@ -1,16 +1,15 @@
-import commands.AdminCommands;
-import commands.Commands;
-import commands.UserCommands;
-import configs.SessionFactoryMaker;
-import configs.TestData;
+import commands.*;
+import configs.*;
 
 public class Main {
+
     public static void main(String[] args) {
+
         SessionFactoryMaker.getFactory();
         System.out.println("DB connection successfully!!!");
 
-        //Skip steps
-        int skipTo = 1; // 0 = login; 1 = admin, 2 = user,
+        //Skip steps // 0 = login; 1 = admin, 2 = user,
+        int skipTo = 0;
 
         if (skipTo == 1) {
             TestData.uploadTestData();
@@ -21,8 +20,6 @@ public class Main {
         } else {
             TestData.uploadTestData();
             Commands.runProgramCMD();
-
-
         }
     }
 }

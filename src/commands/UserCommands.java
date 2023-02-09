@@ -1,7 +1,5 @@
 package commands;
-
 import Functions.Users.DoExam;
-
 import static commands.Commands.sc;
 
 public class UserCommands {

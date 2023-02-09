@@ -2,7 +2,6 @@ package commands;
 
 import Functions.Users.Checks;
 import Functions.Users.CreateUser;
-
 import java.util.Scanner;
 
 public class Commands {

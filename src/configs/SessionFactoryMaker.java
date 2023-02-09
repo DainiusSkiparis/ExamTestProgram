@@ -9,7 +9,6 @@ import org.hibernate.cfg.Configuration;
 
 public class SessionFactoryMaker {
     private static SessionFactory factory;
-
     private static void configureFactory() {
         try {
             factory = new Configuration()
@@ -24,12 +23,10 @@ public class SessionFactoryMaker {
             throw new ExceptionInInitializerError(ex);
         }
     }
-
     public static SessionFactory getFactory() {
         if (factory == null) {
             configureFactory();
         }
-
         return factory;
     }
 }

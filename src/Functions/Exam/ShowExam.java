@@ -1,14 +1,12 @@
 package Functions.Exam;
 
 import configs.SessionFactoryMaker;
-import entities.Exam;
+import entities.*;
 import org.hibernate.Session;
-
 import java.util.List;
 import java.util.Scanner;
 
 public class ShowExam {
-
     public static void showExamById(Scanner sc) {
         System.out.println("Enter ID:");
         int id = Integer.parseInt(sc.nextLine());
@@ -16,7 +14,6 @@ public class ShowExam {
             System.out.println(session.get(Exam.class, id));
         }
     }
-
     public static void showExamByTitle(Scanner sc) {
         System.out.println("Enter Title:");
         String inputTitle = sc.nextLine();
@@ -25,7 +22,6 @@ public class ShowExam {
             System.out.println(session.get(Exam.class, examIdByTitle.getId()));
         }
     }
-
     public static void showAllExams() {
         System.out.println("All exams list:");
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
