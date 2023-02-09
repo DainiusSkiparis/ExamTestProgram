@@ -20,15 +20,19 @@ public class Checks {
         } else checkToCreateAdmin(sc);
         return admin;
     }
-
     public static void checkToLogin(Scanner sc) {
-        ///Here should be username checking function
-        Checks.checkLoginPassword(sc);
-    }
-
-    public static void checkLoginPassword(Scanner sc) {
         System.out.println("Enter username:");
         String inputUsername = sc.nextLine();
+        try (Session session = SessionFactoryMaker.getFactory().openSession()) {
+            User user = (User) session.createQuery("FROM User WHERE username = :x").setParameter("x", inputUsername).uniqueResult();
+            Checks.checkLoginPassword(sc, inputUsername);
+        } catch (Exception e) {
+            System.out.printf("Username '%s' not exist!!! %n",inputUsername);
+            checkToLogin(sc);
+        }
+    }
+
+    public static void checkLoginPassword(Scanner sc, String inputUsername) {
         User user;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             user = (User) session.createQuery("FROM User WHERE username = :x").setParameter("x", inputUsername).uniqueResult();
@@ -47,7 +51,6 @@ public class Checks {
             guess++;
         }
     }
-
     public static void checkLoginOrAdmin(String inputUsername) {
         User user;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
