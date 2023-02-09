@@ -4,12 +4,10 @@ import commands.*;
 import configs.SessionFactoryMaker;
 import entities.User;
 import org.hibernate.Session;
-
 import java.util.Scanner;
 
 public class Checks {
     public static Boolean admin;
-
     public static boolean checkToCreateAdmin(Scanner sc) {
         System.out.println("Enter or this is admin user (y/n):");
         String yn = sc.nextLine();
@@ -24,14 +22,13 @@ public class Checks {
         System.out.println("Enter username:");
         String inputUsername = sc.nextLine();
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
-            User user = (User) session.createQuery("FROM User WHERE username = :x").setParameter("x", inputUsername).uniqueResult();
+            session.createQuery("FROM User WHERE username = :x").setParameter("x", inputUsername).uniqueResult();
             Checks.checkLoginPassword(sc, inputUsername);
         } catch (Exception e) {
             System.out.printf("Username '%s' not exist!!! %n",inputUsername);
             checkToLogin(sc);
         }
     }
-
     public static void checkLoginPassword(Scanner sc, String inputUsername) {
         User user;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {

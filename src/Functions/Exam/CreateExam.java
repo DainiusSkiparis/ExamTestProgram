@@ -34,7 +34,6 @@ public class CreateExam {
         }
         addManyQuestions(sc, examTitle);
     }
-
     private static void addManyQuestions(Scanner sc, String questionText) {
         System.out.println("How many questions do you want to add?");
         try {
@@ -65,14 +64,12 @@ public class CreateExam {
         }
         addManyAnswers(sc, questionText);
     }
-
     private static void addManyAnswers(Scanner sc, String questionText) {
         for (int i = 0; i < 3; i++) {
             addAnswer(sc, questionText, i);
         }
         chooseCorretAnswer(sc, questionText);
     }
-
     private static void addAnswer(Scanner sc, String questionText, int i) {
         Answer addAnswer;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
@@ -96,7 +93,6 @@ public class CreateExam {
             transaction.commit();
         }
     }
-
     public static void chooseCorretAnswer(Scanner sc, String questionText) {
 
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
@@ -116,7 +112,5 @@ public class CreateExam {
             session.merge(answerCorrect);
             session.getTransaction().commit();
         }
-
     }
-
 }
