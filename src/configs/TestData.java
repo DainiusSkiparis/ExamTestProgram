@@ -13,11 +13,12 @@ import java.util.Random;
 
 public class TestData {
     public static void uploadTestData() {
-        TestData.insertUsers();
-        System.out.println("User uploaded successfully!!!");
-        TestData.newInsertExams();
-        System.out.println("Exam uploaded successfully!!!");
+                TestData.insertUsers();
+                System.out.println("User uploaded successfully!!!");
+                TestData.newInsertExams();
+                System.out.println("Exam uploaded successfully!!!");
     }
+
     public static void insertUsers() {
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             session.beginTransaction();
@@ -42,9 +43,10 @@ public class TestData {
             throw new RuntimeException(e);
         }
     }
+
     private static void newInsertExams() {
-       Integer answerId;
-       answerId = 1;
+        Integer answerId;
+        answerId = 1;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             FileReader fileReaderExams = new FileReader("./src/configs/datafiles/exams.txt");
