@@ -1,11 +1,9 @@
 package configs;
 
-import entities.Answer;
-import entities.Exam;
-import entities.Question;
-import entities.User;
+import entities.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
 
 public class SessionFactoryMaker {
     private static SessionFactory factory;
@@ -16,6 +14,7 @@ public class SessionFactoryMaker {
                     .addAnnotatedClass(Exam.class)
                     .addAnnotatedClass(Question.class)
                     .addAnnotatedClass(Answer.class)
+                    .addAnnotatedClass(Result.class)
                     .configure()
                     .buildSessionFactory();
         } catch (Throwable ex) {

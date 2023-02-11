@@ -17,13 +17,18 @@ public class Exam {
     private LocalDate create_time;
     @Column
     private LocalDate update_time;
+    @Column
+    private long taken_count;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam", fetch = FetchType.EAGER)
     private List<Question> questions;
-    public Exam() {
-    }
-    public List<Question> getQuestions() {
-        return questions;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam", fetch = FetchType.EAGER)
+    private List<Result> results;
+
+    public Exam() {}
+
+    public List<Result> getResults() {return results;}
+    public void setResults(List<Result> results) {this.results = results;}
+    public List<Question> getQuestions() {return questions;}
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
@@ -36,6 +41,7 @@ public class Exam {
     public void setUpdate_time(LocalDate update_time) {
         this.update_time = update_time;
     }
+    public void setId(long id) {this.id = id;}
     public Long getId() {
         return id;
     }
@@ -48,6 +54,15 @@ public class Exam {
     public LocalDate getUpdate_time() {
         return update_time;
     }
+
+    public long getTaken_count() {
+        return taken_count;
+    }
+
+    public void setTaken_count(long taken_count) {
+        this.taken_count = taken_count;
+    }
+
     @Override
     public String toString() {
         return String.format("|%3s|%15s|%15s|%15s|", this.getId(), this.getExam_title(), this.getCreate_time(), this.getUpdate_time());

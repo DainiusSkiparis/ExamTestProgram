@@ -23,6 +23,15 @@ public class Answer {
     private Question question;
     public Answer() {
     }
+
+    public Boolean getCorrect_answer() {
+        return correct_answer;
+    }
+
+    public void setCorrect_answer(Boolean correct_answer) {
+        this.correct_answer = correct_answer;
+    }
+
     public Question getQuestion() {
         return question;
     }

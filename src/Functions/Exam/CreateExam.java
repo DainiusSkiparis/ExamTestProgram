@@ -74,32 +74,23 @@ public class CreateExam {
         Answer addAnswer;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-
             Question questionIdByText = (Question) session.createQuery("from Question where question_text = :x").setParameter("x", questionText).uniqueResult();
             Question question = session.get(Question.class, questionIdByText.getId());
-
             System.out.printf("Adding %d answer%n", i + 1);
             addAnswer = new Answer();
-
             addAnswer.setQuestion(question);
-
             System.out.println("Enter answer text:");
             String answerText = sc.nextLine();
             addAnswer.setAnswer_text(answerText);
-
             addAnswer.setCreate_time(LocalDate.now());
-
             session.merge(addAnswer);
             transaction.commit();
         }
     }
     public static void chooseCorretAnswer(Scanner sc, String questionText) {
-
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             session.getTransaction().begin();
-
             Question questionIdByText = (Question) session.createQuery("from Question where question_text = :x").setParameter("x", questionText).uniqueResult();
-
             System.out.printf("Question: %s %n", questionText);
             for (Answer e : questionIdByText.getAnswers()) {
                 System.out.printf("Answer id: %d | %s %n", e.getId(), e.getAnswer_text());
@@ -108,7 +99,6 @@ public class CreateExam {
             int id = Integer.parseInt(sc.nextLine());
             Answer answerCorrect = session.get(Answer.class, id);
             answerCorrect.setCorrect_answer(true);
-
             session.merge(answerCorrect);
             session.getTransaction().commit();
         }

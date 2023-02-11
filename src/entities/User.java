@@ -2,6 +2,8 @@ package entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 
 @Entity
 @Table(name = "users")
@@ -21,8 +23,18 @@ public class User {
     private LocalDate create_time;
     @Column
     private LocalDate update_time;
-    public User() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Result> results;
+    public User() {}
+
+    public List<Result> getResults() {
+        return results;
     }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -60,4 +72,5 @@ public class User {
     public String toString() {
         return String.format("|%3s|%15s|%15s|%5b|%15s|%15s|", this.getId(), this.getUsername(), this.getPassword(), this.isAdmin(), this.getCreate_time(), this.getUpdate_time());
     }
+
 }

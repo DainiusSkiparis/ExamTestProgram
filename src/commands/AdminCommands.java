@@ -4,35 +4,14 @@ import Functions.Exam.CreateExam;
 import Functions.Exam.DeleteExam;
 import Functions.Exam.ShowExam;
 import Functions.Exam.UpdateExam;
-
 import static commands.Commands.sc;
 
 public class AdminCommands {
-    public static void loginToAdminCMD() {
+        public static void loginToAdminCMD() {
         boolean runProgram = true;
         while (runProgram) {
             try {
                 PrintCommandsText.loginAdminText();
-                String input = sc.nextLine();
-                switch (input) {
-                    case "1" -> adminExamsCMD();
-                    //case "2" -> adminQuestionsCMD();;
-                    //case "3" -> adminAnswersCMD();
-                    //case "4" -> adminResultsCMD();
-                    case "0" -> runProgram = false;
-                    default -> System.out.println("Incorrect input! Try again.");
-                }
-            } catch (Exception e) {
-                System.out.println("An error occurred: " + e.getMessage());
-            }
-        }
-        Commands.runProgramCMD();
-    }
-    public static void adminExamsCMD() {
-        boolean runProgram = true;
-        while (runProgram) {
-            try {
-                PrintCommandsText.adminExamsText();
                 String input = sc.nextLine();
                 switch (input) {
                     case "1" -> showExamCMD();
@@ -46,9 +25,8 @@ public class AdminCommands {
                 System.out.println("An error occurred: " + e.getMessage());
             }
         }
-        loginToAdminCMD();
+        Commands.runProgramCMD();
     }
-
     public static void showExamCMD() {
         boolean runProgram = true;
         while (runProgram) {
@@ -66,7 +44,7 @@ public class AdminCommands {
                 System.out.println("An error occurred: " + e.getMessage());
             }
         }
-        adminExamsCMD();
+        loginToAdminCMD();
     }
     private static void updateExamCMD() {
         boolean runProgram = true;
@@ -85,7 +63,7 @@ public class AdminCommands {
                 System.out.println("An error occurred: " + e.getMessage());
             }
         }
-        adminExamsCMD();
+        loginToAdminCMD();
     }
     public static void deleteExamCMD() {
         boolean runProgram = true;
@@ -104,7 +82,7 @@ public class AdminCommands {
                 System.out.println("An error occurred: " + e.getMessage());
             }
         }
-        adminExamsCMD();
+        loginToAdminCMD();
     }
 }
 

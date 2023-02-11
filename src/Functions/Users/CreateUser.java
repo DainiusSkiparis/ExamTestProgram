@@ -1,9 +1,8 @@
 package Functions.Users;
 
 import configs.SessionFactoryMaker;
-import entities.User;
+import entities.*;
 import org.hibernate.Session;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -12,7 +11,6 @@ public class CreateUser {
         User addUser = new User();
         System.out.println("Enter username:");
         String usernameInput = null;
-
         boolean isNameToShort = true;
         while (isNameToShort) {
             usernameInput = sc.nextLine();
@@ -59,6 +57,5 @@ public class CreateUser {
             userType = "User";
         }
         System.out.printf("%s '%s' created successfully!!!%n", userType, addUser.getUsername());
-
     }
 }

@@ -10,15 +10,6 @@ public class PrintCommandsText {
     }
     public static void loginAdminText() {
         System.out.println("---------------------");
-        System.out.println("[1] - Exams");
-        System.out.println("[2] - Questions");
-        System.out.println("[3] - Answers");
-        System.out.println("[4] - Results");
-        System.out.println("[0] - Return to login menu");
-        System.out.println("---------------------");
-    }
-    public static void adminExamsText() {
-        System.out.println("---------------------");
         System.out.println("[1] - Show exams");
         System.out.println("[2] - Create exams");
         System.out.println("[3] - Update exams");
@@ -26,37 +17,6 @@ public class PrintCommandsText {
         System.out.println("[0] - Return to admin menu");
         System.out.println("---------------------");
     }
-
-    public static void adminQuestionsText() {
-        System.out.println("---------------------");
-        System.out.println("[1] - Show questions");
-        System.out.println("[2] - Create questions");
-        System.out.println("[3] - Update questions");
-        System.out.println("[4] - Delete questions");
-        System.out.println("[0] - Return to admin menu");
-        System.out.println("---------------------");
-    }
-
-    public static void adminAnswersText() {
-        System.out.println("---------------------");
-        System.out.println("[1] - Show answers");
-        System.out.println("[2] - Create answers");
-        System.out.println("[3] - Update answers");
-        System.out.println("[4] - Delete answers");
-        System.out.println("[0] - Return to admin menu");
-        System.out.println("---------------------");
-    }
-
-    public static void adminResultsText() {
-        System.out.println("---------------------");
-        System.out.println("[1] - Show results");
-        System.out.println("[2] - Create results");
-        System.out.println("[3] - Update results");
-        System.out.println("[4] - Delete results");
-        System.out.println("[0] - Return to admin menu");
-        System.out.println("---------------------");
-    }
-
     public static void showExamText() {
         System.out.println("---------------------");
         System.out.println("[1] - Show exam by id");
@@ -86,6 +46,13 @@ public class PrintCommandsText {
         System.out.println("[1] - Take exam");
         System.out.println("[2] - Checks statistics");
         System.out.println("[0] - Return to login menu");
+        System.out.println("---------------------");
+    }
+    public static void loginStatisticText() {
+        System.out.println("---------------------");
+        System.out.println("[1] - Average correct answers");
+        System.out.println("[2] - How time exam was taken");
+        System.out.println("[0] - Return to user menu");
         System.out.println("---------------------");
     }
 }
