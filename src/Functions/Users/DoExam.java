@@ -4,6 +4,7 @@ import configs.SessionFactoryMaker;
 import entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -11,8 +12,9 @@ import java.util.Scanner;
 public class DoExam {
     public static void startDoExam(Scanner sc) {
         System.out.println("All available exams:");
-        long startDoExamId;
+        int answerInput;
         long answerId;
+        long startDoExamId;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             List<Exam> exams = session.createQuery("from Exam", Exam.class).list();
@@ -21,6 +23,11 @@ public class DoExam {
             }
             System.out.println("Choose what exam you want to do:");
             startDoExamId = Integer.parseInt(sc.nextLine());
+            while (startDoExamId <= 0 || startDoExamId > exams.size()) {
+                System.out.println("Invalid input");
+                System.out.println("Enter a valid number");
+                startDoExamId = Integer.parseInt(sc.nextLine());
+            }
             Exam exam = session.get(Exam.class, startDoExamId);
             exam.setTaken_count(exam.getTaken_count() + 1);
             session.merge(exam);
@@ -35,11 +42,15 @@ public class DoExam {
                     System.out.printf("[%d] - %s%n", ++i, a.getAnswer_text());
                 }
                 System.out.println("Enter your answer id:");
-                int answerInput = Integer.parseInt(sc.nextLine());
+                answerInput = Integer.parseInt(sc.nextLine());
                 List<Answer> answers = question.getAnswers();
                 Answer chosenAnswer = null;
+                while (answerInput <= 0 || answerInput > answers.size()) {
+                    System.out.println("Invalid input");
+                    System.out.println("Enter a valid number");
+                    answerInput = Integer.parseInt(sc.nextLine());
+                }
                 for (int x = 1; x <= answers.size(); x++) {
-
                     if (answerInput == x) {
                         chosenAnswer = answers.get(x - 1);
                     }
@@ -49,10 +60,12 @@ public class DoExam {
                 System.out.printf("You chosen answer: %s%n", chosenAnswer.getAnswer_text());
                 answerId = chosenAnswer.getId();
                 addCorrectAnswerTaken(answerId, startDoExamId);
+                countAnswersByNum(answerInput, startDoExamId);
             }
         }
         countResult(startDoExamId);
     }
+
     public static void addExamTaken(long startDoExamId) {
         Result addResult;
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
@@ -66,14 +79,13 @@ public class DoExam {
                 addResult = new Result();
                 addResult.setExam(exam);
                 addResult.setExam_taken(1L);
-                addResult.setAvg_result(0.0D);
-                addResult.setUpdate_time(LocalDate.now());
                 addResult.setCreate_time(LocalDate.now());
                 session.merge(addResult);
             }
             transaction.commit();
         }
     }
+
     public static void addQuestionTaken(long startDoExamId) {
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -87,6 +99,7 @@ public class DoExam {
             transaction.commit();
         }
     }
+
     private static void addAnswerTaken(long startDoExamId) {
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -100,6 +113,7 @@ public class DoExam {
             transaction.commit();
         }
     }
+
     public static void addCorrectAnswerTaken(long answerId, long startDoExamId) {
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -116,22 +130,49 @@ public class DoExam {
             transaction.commit();
         }
     }
+
     public static void countResult(long startDoExamId) {
         try (Session session = SessionFactoryMaker.getFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             Exam exam = session.get(Exam.class, startDoExamId);
-            Result addCountResult =  session.get(Result.class, exam.getId());
+            Result addCountResult = session.get(Result.class, exam.getId());
             double addAvgResult = (double) addCountResult.getCorrect_answers() / (double) addCountResult.getQuestions_taken();
             addCountResult.setAvg_result(addAvgResult);
             System.out.println(addAvgResult);
             session.persist(addCountResult);
             transaction.commit();
             System.out.printf("You result is %3.2f %n", addAvgResult);
-
         }
-
     }
 
+    public static void countAnswersByNum(int answerInput, long startDoExamId) {
+        try (Session session = SessionFactoryMaker.getFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Exam exam = session.get(Exam.class, startDoExamId);
+            Result result = session.get(Result.class, exam.getId());
+
+            if (result.getAnswer_1() == null) {
+                result.setAnswer_1(0L);
+            }
+            if (result.getAnswer_2() == null) {
+                result.setAnswer_2(0L);
+            }
+            if (result.getAnswer_3() == null) {
+                result.setAnswer_3(0L);
+            }
+            if (answerInput == 1) {
+                result.setAnswer_1(result.getAnswer_1() + 1);
+            }
+            if (answerInput == 2) {
+                result.setAnswer_2(result.getAnswer_2() + 1);
+            }
+            if (answerInput == 3) {
+                result.setAnswer_3(result.getAnswer_3() + 1);
+            }
+            session.persist(result);
+            transaction.commit();
+        }
+    }
 }
 
 

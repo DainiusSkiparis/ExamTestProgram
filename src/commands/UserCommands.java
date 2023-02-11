@@ -34,6 +34,7 @@ public class UserCommands {
                 switch (input) {
                     case "1" -> ShowStatistic.correctAnswersByExam(sc);
                     case "2" -> ShowStatistic.manyTimesExamTaken(sc);
+                    case "3" -> ShowStatistic.answersCountByChosenNumber(sc);
                     case "0" -> runProgram = false;
                     default -> System.out.println("Incorrect input! Try again.");
                 }

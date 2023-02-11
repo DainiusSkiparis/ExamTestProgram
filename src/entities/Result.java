@@ -22,6 +22,12 @@ public class Result {
     @Column
     private Double avg_result;
     @Column
+    private Long answer_1;
+    @Column
+    private Long answer_2;
+    @Column
+    private Long answer_3;
+    @Column
     private LocalDate create_time;
     @Column
     private LocalDate update_time;
@@ -35,6 +41,30 @@ public class Result {
     private User user;
 
     public Result() {
+    }
+
+    public Long getAnswer_1() {
+        return answer_1;
+    }
+
+    public void setAnswer_1(Long answer_1) {
+        this.answer_1 = answer_1;
+    }
+
+    public Long getAnswer_2() {
+        return answer_2;
+    }
+
+    public void setAnswer_2(Long answer_2) {
+        this.answer_2 = answer_2;
+    }
+
+    public Long getAnswer_3() {
+        return answer_3;
+    }
+
+    public void setAnswer_3(Long answer_3) {
+        this.answer_3 = answer_3;
     }
 
     public Long getId() {
